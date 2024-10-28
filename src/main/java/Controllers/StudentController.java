@@ -7,13 +7,10 @@ import StudentValidator.StudentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/school/students")
+@RequestMapping("/api/students")
 public class StudentController {
 
     private StudentService studentService;
@@ -30,10 +27,15 @@ public class StudentController {
         this.studentValidator = studentValidator;
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> testEndpoint() {
+        return ResponseEntity.ok("Student API is running");
+    }
+
     @PostMapping()
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
 
-           studentValidator.validate(student);
+        studentValidator.validate(student);
 
         try {
             Student createdStudent = studentService.createStudent(student);
