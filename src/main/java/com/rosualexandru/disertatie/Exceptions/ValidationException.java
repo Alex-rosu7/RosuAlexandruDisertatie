@@ -1,4 +1,4 @@
-package Exceptions;
+package com.rosualexandru.disertatie.Exceptions;
 
 import java.io.Serial;
 

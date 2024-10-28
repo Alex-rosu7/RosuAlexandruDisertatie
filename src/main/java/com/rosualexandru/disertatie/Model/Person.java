@@ -1,4 +1,4 @@
-package Model;
+package com.rosualexandru.disertatie.Model;
 
 
 import lombok.*;

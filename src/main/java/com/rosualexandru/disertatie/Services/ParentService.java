@@ -1,7 +1,7 @@
-package Services;
+package com.rosualexandru.disertatie.Services;
 
-import Model.Parent;
-import Repositories.ParentRepository;
+import com.rosualexandru.disertatie.Model.Parent;
+import com.rosualexandru.disertatie.Repositories.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

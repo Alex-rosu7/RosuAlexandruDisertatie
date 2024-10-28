@@ -1,9 +1,8 @@
-package Controllers;
+package com.rosualexandru.disertatie.Controllers;
 
-import Model.Student;
-import Repositories.StudentRepository;
-import Services.StudentService;
-import StudentValidator.StudentValidator;
+import com.rosualexandru.disertatie.Model.Student;
+import com.rosualexandru.disertatie.Services.StudentService;
+import com.rosualexandru.disertatie.StudentValidator.StudentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,7 @@ public class StudentController {
         return ResponseEntity.ok("Student API is running");
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
 
         studentValidator.validate(student);

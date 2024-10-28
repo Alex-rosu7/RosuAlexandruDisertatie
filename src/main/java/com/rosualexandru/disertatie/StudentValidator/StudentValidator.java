@@ -1,7 +1,7 @@
-package StudentValidator;
+package com.rosualexandru.disertatie.StudentValidator;
 
-import Exceptions.ValidationException;
-import Model.Student;
+import com.rosualexandru.disertatie.Exceptions.ValidationException;
+import com.rosualexandru.disertatie.Model.Student;
 import org.springframework.stereotype.Component;
 
 @Component

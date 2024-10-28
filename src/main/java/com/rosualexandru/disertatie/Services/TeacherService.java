@@ -1,7 +1,7 @@
-package Services;
+package com.rosualexandru.disertatie.Services;
 
-import Model.Teacher;
-import Repositories.TeacherRepository;
+import com.rosualexandru.disertatie.Model.Teacher;
+import com.rosualexandru.disertatie.Repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

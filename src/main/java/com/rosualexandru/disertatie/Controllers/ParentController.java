@@ -1,10 +1,8 @@
-package Controllers;
+package com.rosualexandru.disertatie.Controllers;
 
-import Model.Parent;
-import Model.Student;
-import Services.ParentService;
-import Services.StudentService;
-import StudentValidator.ParentValidator;
+import com.rosualexandru.disertatie.Model.Parent;
+import com.rosualexandru.disertatie.Services.ParentService;
+import com.rosualexandru.disertatie.StudentValidator.ParentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

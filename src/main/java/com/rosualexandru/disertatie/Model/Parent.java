@@ -1,4 +1,4 @@
-package Model;
+package com.rosualexandru.disertatie.Model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +22,6 @@ public class Parent extends Person implements Serializable {
     @Id
     private String id;
 
+    private List<Student> children;
 
 }
