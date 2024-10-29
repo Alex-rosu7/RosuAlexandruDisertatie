@@ -32,16 +32,18 @@ public class StudentController {
 
     @GetMapping()
     public ResponseEntity<List<Student>> getAllTeachers() {
-        Optional<List<Student>> students = studentService.getAllStudents();
-        return students.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return studentService.getAllStudents()
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
 
     @GetMapping("/{studentEmail}")
     public ResponseEntity<Student> getTeacher(@PathVariable String studentEmail) {
-        Optional<Student> student = studentService.getStudentByEmail(studentEmail);
-        return student.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return studentService.getStudentByEmail(studentEmail)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
