@@ -23,16 +23,18 @@ public class TeacherController {
 
     @GetMapping()
     public ResponseEntity<List<Teacher>> getAllTeachers() {
-        Optional<List<Teacher>> teachers = teacherService.getAllTeachers();
-        return teachers.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return teacherService.getAllTeachers()
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
 
     @GetMapping("/{teacherEmail}")
     public ResponseEntity<Teacher> getTeacher(@PathVariable String teacherEmail) {
-        Optional<Teacher> teacher = teacherService.getTeacherByEmail(teacherEmail);
-        return teacher.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return teacherService.getTeacherByEmail(teacherEmail)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
@@ -44,11 +46,18 @@ public class TeacherController {
 
     @PutMapping("/{teacherEmail}")
     public ResponseEntity<Teacher> updateTeacher(@PathVariable String teacherEmail, @RequestBody Teacher teacher) {
-        return null;
+        return teacherService.updateTeacher(teacherEmail, teacher)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/{teacherEmail}")
-    public ResponseEntity<String> deleteTeacher(@PathVariable String teacherEmail) {
-        return null;
+    @DeleteMapping("/email/{email}")
+    public ResponseEntity<Void> deleteTeacherByEmail(@PathVariable String email) {
+        boolean isDeleted = teacherService.deleteByEmail(email);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
