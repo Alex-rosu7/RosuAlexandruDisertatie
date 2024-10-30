@@ -44,4 +44,13 @@ public class StudentService {
         Student student = studentRepository.getStudentByEmail(studentEmail);
         return Optional.of(student);
     }
+
+    public boolean deleteByEmail(String email) {
+        Optional<Student> student = studentRepository.findByEmail(email);
+        if (student.isPresent()) {
+            studentRepository.delete(student.get());
+            return true;
+        }
+        return false;
+    }
 }

@@ -31,7 +31,7 @@ public class StudentController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Student>> getAllTeachers() {
+    public ResponseEntity<List<Student>> getAllStudents() {
         return studentService.getAllStudents()
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -39,9 +39,9 @@ public class StudentController {
     }
 
 
-    @GetMapping("/{studentEmail}")
-    public ResponseEntity<Student> getTeacher(@PathVariable String studentEmail) {
-        return studentService.getStudentByEmail(studentEmail)
+    @GetMapping("/{email}")
+    public ResponseEntity<Student> getStudent(@PathVariable String email) {
+        return studentService.getStudentByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
@@ -66,5 +66,16 @@ public class StudentController {
         return studentService.updateStudent(email, updatedStudent)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+    @DeleteMapping("/email/{email}")
+    public ResponseEntity<Void> deleteTeacherByEmail(@PathVariable String email) {
+        boolean isDeleted = studentService.deleteByEmail(email);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

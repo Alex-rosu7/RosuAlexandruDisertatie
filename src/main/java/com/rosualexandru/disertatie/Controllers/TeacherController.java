@@ -30,9 +30,9 @@ public class TeacherController {
     }
 
 
-    @GetMapping("/{teacherEmail}")
-    public ResponseEntity<Teacher> getTeacher(@PathVariable String teacherEmail) {
-        return teacherService.getTeacherByEmail(teacherEmail)
+    @GetMapping("/{email}")
+    public ResponseEntity<Teacher> getTeacher(@PathVariable String email) {
+        return teacherService.getTeacherByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
@@ -44,9 +44,9 @@ public class TeacherController {
         return new ResponseEntity<>(createdTeacher, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{teacherEmail}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable String teacherEmail, @RequestBody Teacher teacher) {
-        return teacherService.updateTeacher(teacherEmail, teacher)
+    @PutMapping("/{email}")
+    public ResponseEntity<Teacher> updateTeacher(@PathVariable String email, @RequestBody Teacher teacher) {
+        return teacherService.updateTeacher(email, teacher)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
