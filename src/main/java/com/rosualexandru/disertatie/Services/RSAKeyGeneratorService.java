@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.*;
 import java.util.Base64;
 
@@ -30,8 +32,8 @@ public class RSAKeyGeneratorService {
             PrivateKey privateKey = keyPair.getPrivate();
             PublicKey publicKey = keyPair.getPublic();
 
-            saveKeyToFile(targetDirectory, "publicKey.pem", encodeKey(publicKey.getEncoded()));
-            saveKeyToFile(targetDirectory, "privateKey.pem", encodeKey(privateKey.getEncoded()));
+            saveKeyToFile(targetDirectory, "publicKey.pem", encodeKey(publicKey.getEncoded()), "PUBLIC");
+            saveKeyToFile(targetDirectory, "privateKey.pem", encodeKey(privateKey.getEncoded()), "PRIVATE");
 
             System.out.println("✅ RSA Key Pair Generated Successfully!");
         } catch (IOException | NoSuchAlgorithmException e) {
@@ -51,6 +53,16 @@ public class RSAKeyGeneratorService {
     }
 
     /**
+     * Determines the application's "Config" directory dynamically.
+     *
+     * @return The absolute path to the "Config" folder.
+     */
+    private String getApplicationConfigPath() {
+        return Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "certificates").toString();
+    }
+
+
+    /**
      * Saves the key to a file in PEM format.
      *
      * @param targetDirectory The name of the directory to save the files.
@@ -58,20 +70,20 @@ public class RSAKeyGeneratorService {
      * @param key             The Base64-encoded key.
      * @throws IOException If an error occurs while writing the file.
      */
-    private void saveKeyToFile(String targetDirectory, String fileName, String key) throws IOException {
-        Utils.createDirectory(targetDirectory);
-        String filePath = Utils.getFolderPath(targetDirectory) + File.separator + fileName;
+    private void saveKeyToFile(String targetDirectory, String fileName, String key, String keyType) throws IOException {
 
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
-            fileWriter.write("-----BEGIN RSA KEY-----\n");
+        Path filePath = Paths.get(targetDirectory, fileName);
+        try (FileWriter fileWriter = new FileWriter(filePath.toFile())) {
+            fileWriter.write("-----BEGIN " + keyType + " KEY-----\n");
             fileWriter.write(key);
-            fileWriter.write("\n-----END RSA KEY-----\n");
+            fileWriter.write("\n-----END " + keyType + " KEY-----\n");
         }
-        System.out.println("Saved Key: " + filePath);
+        System.out.println("🔑 Saved Key: " + filePath);
+    }
+    public static void main(String[] args) {
+        RSAKeyGeneratorService rsaKeyService = new RSAKeyGeneratorService(); // Create service instance
+        String configPath = rsaKeyService.getApplicationConfigPath(); // Call the method
+        System.out.println("📂 Application Config Path: " + configPath); // Print the result
     }
 
-    public static void main(String[] args) {
-        RSAKeyGeneratorService rsaKeyGeneratorService = new RSAKeyGeneratorService();
-        rsaKeyGeneratorService.generateRSAKeys("certificates");
-    }
 }
