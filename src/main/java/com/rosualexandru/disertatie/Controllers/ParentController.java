@@ -56,7 +56,7 @@ public class ParentController {
     }
 
     @PutMapping("/email/{email}")
-    public ResponseEntity<Student> updateStudent(@PathVariable String email, @RequestBody Student updatedStudent) {
+    public ResponseEntity<?> updateStudent(@PathVariable String email, @RequestBody Student updatedStudent) {
         return parentService.updateParent(email, updatedStudent)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
